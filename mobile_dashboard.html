@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Kerala Strings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="icon.png">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #FFD700;
+            --text-dark: #2C1810;
+            --text-light: #6B4423;
+            --bg-light: #FFF8F0;
+            --white: #FFFFFF;
+            --border-color: #e0d6cb;
+            --card-bg: #ffffff;
+            --shadow-light: 0 4px 15px rgba(139, 69, 19, 0.05);
+            --shadow-strong: 0 8px 25px rgba(139, 69, 19, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+        }
+
+        .mobile-container {
+            max-width: 420px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            min-height: 100vh;
+            padding-bottom: 80px; /* Space for bottom nav */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: var(--white);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar .logo img {
+            width: 28px;
+            height: 28px;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+
+        .sidebar .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-menu a:hover,
+        .sidebar .nav-menu a.active {
+            background-color: var(--bg-light);
+            color: var(--primary-color);
+        }
+
+        .sidebar .nav-menu a i {
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .page-container {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        /* Top Bar for Mobile - now becomes part of page-container header */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .top-bar .menu-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        .top-bar .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .top-bar .logo img {
+            width: 28px;
+            height: 28px;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+        .top-bar .user-icons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 0;
+        }
+        .dashboard-header {
+            margin: 1rem 0;
+        }
+        .dashboard-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        .dashboard-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .control-btn {
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: transparent;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dark);
+        }
+        .control-btn.activities {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* Days Scroller */
+        .days-scroller {
+            display: flex;
+            gap: 0.8rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        .days-scroller::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .day-card {
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 80px;
+            color: var(--text-light);
+        }
+        .day-card.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .day-card span {
+            display: block;
+        }
+        .day-card .day-label {
+            font-size: 0.9rem;
+        }
+        .day-card .day-number {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Topic List */
+        .topic-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
+        }
+        .topic-info {
+            flex-grow: 1;
+        }
+        .topic-info .tag {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.2rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        .topic-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .topic-info .duration {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: 0.3rem;
+        }
+        .topic-thumbnail {
+            width: 100px;
+            height: 70px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--primary-color);
+        }
+        .topic-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Bottom Nav - Hidden on Desktop */
+        .bottom-nav {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                height: 100%;
+                z-index: 1001;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .page-container {
+                padding: 1rem;
+                height: auto;
+            }
+            
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: var(--card-bg);
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+                display: flex;
+                justify-content: space-around;
+                padding: 0.8rem 0;
+                border-top: 1px solid var(--border-color);
+                z-index: 1000;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <img src="icon.png" alt="Logo" class="header-icon">
+            Kerala Strings
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#" class="active"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+            <li><a href="professions.html"><i class="fas fa-graduation-cap"></i><span>Professions</span></a></li>
+            <li><a href="#"><i class="fas fa-book-open"></i><span>My Lessons</span></a></li>
+            <li><a href="#"><i class="fas fa-music"></i><span>Sheet Music</span></a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+        </ul>
+    </aside>
+
+    <div class="page-container">
+        <header class="top-bar">
+            <i class="fas fa-bars menu-icon" id="menu-toggle"></i>
+            <div class="user-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-user-circle" id="profileIcon" style="cursor:pointer;"></i>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="dashboard-header">
+                <h1>Dashboard</h1>
+                <p>Enjoy your Daily Violin Lessons 🎻</p>
+            </section>
+
+            <div id="weekDisplay" style="font-size:1.2rem; font-weight:600; color:#D2691E; margin-bottom:0.5rem;">Week 1</div>
+            <div id="dayOfWeekDisplay" style="font-size:1.1rem; font-weight:500; color:#8B4513; margin-bottom:1.2rem;">Monday</div>
+
+            <section class="days-scroller" id="daysScroller">
+            </section>
+            <div class="day-card" data-day="all" id="viewAllDaysBtn" style="margin-bottom:2rem;"><span class="day-label">View</span><span class="day-number">Days</span></div>
+
+            <!-- Days Modal Overlay -->
+            <div id="daysModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:2000; align-items:center; justify-content:center;">
+                <div style="background:#fff; border-radius:24px; max-width:98vw; max-height:95vh; min-width:320px; min-height:320px; overflow:auto; padding:3rem 2rem 2rem 2rem; position:relative; box-shadow:0 8px 40px rgba(139,69,19,0.18);">
+                    <button id="closeDaysModal" style="position:absolute; top:1.2rem; right:1.5rem; background:none; border:none; font-size:2.5rem; color:#8B4513; cursor:pointer;">&times;</button>
+                    <h2 style="margin-bottom:2rem; color:#8B4513; font-size:2rem; text-align:center;">Select a Day</h2>
+                    <div id="allDaysGrid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(80px, 1fr)); gap:1rem; padding-bottom:1rem;"></div>
+                </div>
+            </div>
+
+            <section class="topic-list" id="topicList" style="margin-top:1.5rem;">
+                <!-- Lessons will be injected here -->
+            </section>
+            <button id="markCompleteBtn" style="margin:1.5rem auto 0 auto; display:block; background:linear-gradient(135deg,#8B4513,#D2691E); color:#fff; font-size:1.1rem; font-weight:600; border:none; border-radius:25px; padding:0.9rem 2.2rem; cursor:pointer; box-shadow:0 4px 16px rgba(139,69,19,0.08); transition:background 0.2s;">Mark as Complete</button>
+
+            <!-- Meet Section -->
+            <section id="meetSection" style="margin:2.5rem auto 0 auto; max-width:420px; background:linear-gradient(135deg,#FFF8F0 60%,#FFD700 100%); border-radius:18px; box-shadow:0 4px 24px rgba(139,69,19,0.08); padding:2rem 1.2rem 1.5rem 1.2rem; text-align:center;">
+                <div style="font-size:1.4rem; font-weight:700; color:#8B4513; margin-bottom:0.7rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+                    <i class="fas fa-video"></i> Meet
+                </div>
+                <div style="font-size:1.08rem; color:#6B4423; margin-bottom:1.2rem;">
+                    Next Live Class: <span style="font-weight:600; color:#D2691E;">Saturday, 5:00 PM</span>
+                </div>
+                <a href="https://meet.google.com/jrs-wekc-bij" target="_blank" rel="noopener" style="display:inline-block; background:linear-gradient(135deg,#8B4513,#D2691E); color:#fff; font-size:1.08rem; font-weight:600; border:none; border-radius:25px; padding:0.7rem 2.1rem; text-decoration:none; box-shadow:0 2px 8px rgba(139,69,19,0.08); transition:background 0.2s;">
+                    <i class="fas fa-door-open"></i> Join Live Class
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-book-open"></i><span>Lessons</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-music"></i><span>Music</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+        <li><a href="#contact">Contact</a></li>
+    </nav>
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+
+        // Generate 164 unique lessons
+        const tags = ['Beginner', 'Practice', 'Theory', 'Intermediate', 'Advanced', 'Performance', 'Review'];
+        const thumbnails = [
+            'https://images.unsplash.com/photo-1612299263222-2273c52857b2?w=100&h=70&fit=crop',
+            'https://images.unsplash.com/photo-1599557041284-7e2a1581e479?w=100&h=70&fit=crop',
+            'https://images.unsplash.com/photo-1581783332084-59a3413ce16b?w=100&h=70&fit=crop',
+            'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100&h=70&fit=crop',
+            'https://images.unsplash.com/photo-1464983953574-0892a716854b?w=100&h=70&fit=crop',
+            'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&h=70&fit=crop',
+            'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=70&fit=crop',
+            'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=100&h=70&fit=crop',
+            'https://images.unsplash.com/photo-1465101178521-c1a9136a3b41?w=100&h=70&fit=crop',
+            'https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=100&h=70&fit=crop'
+        ];
+        function randomDuration() {
+            const min = 3, max = 10;
+            const minSec = 0, maxSec = 59;
+            const minVal = Math.floor(Math.random() * (max - min + 1)) + min;
+            const secVal = Math.floor(Math.random() * (maxSec - minSec + 1)) + minSec;
+            return `${minVal}min ${secVal.toString().padStart(2, '0')}sec`;
+        }
+        const lessonsByDay = {};
+        for (let i = 1; i <= 164; i++) {
+            lessonsByDay[i] = [
+                {
+                    tag: tags[i % tags.length],
+                    title: `Day ${i}: Topic ${i}`,
+                    duration: randomDuration(),
+                    thumbnail: thumbnails[i % thumbnails.length],
+                    alt: `Day ${i} Topic`
+                }
+            ];
+        }
+        lessonsByDay['all'] = [
+            {
+                tag: 'All',
+                title: 'All Lessons Overview',
+                duration: '10min 00sec',
+                thumbnail: thumbnails[0],
+                alt: 'All Lessons'
+            }
+        ];
+
+        function renderLessons(day) {
+            const topicList = document.getElementById('topicList');
+            const lessons = lessonsByDay[day] || [];
+            topicList.innerHTML = lessons.map((lesson, index) => `
+                <div class="topic-card" onclick="openLesson(${day}, ${index + 1})" style="cursor: pointer;">
+                    <div class="topic-info">
+                        <span class="tag">${lesson.tag}</span>
+                        <h3>${lesson.title}</h3>
+                        <div class="duration"><i class="far fa-clock"></i> ${lesson.duration}</div>
+                    </div>
+                    <div class="topic-thumbnail">
+                        <img src="${lesson.thumbnail}" alt="${lesson.alt}">
+                    </div>
+                </div>
+            `).join('');
+
+            // Update week display
+            let weekNum = 1;
+            if (!isNaN(day) && Number(day) >= 1) {
+                weekNum = Math.ceil(Number(day) / 7);
+            }
+            document.getElementById('weekDisplay').textContent = `Week ${weekNum}`;
+
+            // Update day of week display
+            const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            let dayOfWeek = 'Monday';
+            if (!isNaN(day) && Number(day) >= 1) {
+                dayOfWeek = daysOfWeek[(Number(day) - 1) % 7];
+            }
+            document.getElementById('dayOfWeekDisplay').textContent = dayOfWeek;
+        }
+
+        // Function to open lesson page
+        function openLesson(day, lessonIndex) {
+            window.location.href = `connect.html?lesson=${lessonIndex}&day=${day}`;
+        }
+
+        // Track the current selected day
+        let currentDay = 1;
+
+        // Track the highest unlocked day
+        let maxUnlockedDay = 1;
+
+        // Update all UI for a given day
+        function updateDashboardForDay(day) {
+            currentDay = day;
+            renderDayScroller(day);
+            renderLessons(String(day));
+            // Enable/disable Mark as Complete button
+            const markBtn = document.getElementById('markCompleteBtn');
+            if (currentDay < 164) {
+                markBtn.disabled = false;
+                markBtn.textContent = 'Mark as Complete';
+                markBtn.style.background = 'linear-gradient(135deg,#8B4513,#D2691E)';
+                markBtn.style.cursor = 'pointer';
+            } else {
+                markBtn.disabled = true;
+                markBtn.textContent = 'All Days Completed!';
+                markBtn.style.background = '#aaa';
+                markBtn.style.cursor = 'not-allowed';
+            }
+        }
+
+        // Initial render for Day 1
+        updateDashboardForDay(1);
+
+        // Update all usages to use updateDashboardForDay
+        // (replace renderDayScroller/renderLessons calls in event listeners)
+
+        // View all days button logic
+        document.getElementById('viewAllDaysBtn').addEventListener('click', function() {
+            // Generate 164 day cards
+            allDaysGrid.innerHTML = '';
+            for (let i = 1; i <= 164; i++) {
+                const dayBtn = document.createElement('button');
+                dayBtn.textContent = `Day ${i}`;
+                dayBtn.style.padding = '1.2rem 0.2rem';
+                dayBtn.style.borderRadius = '12px';
+                dayBtn.style.border = '2px solid #e0d6cb';
+                dayBtn.style.background = '#FFF8F0';
+                dayBtn.style.color = '#8B4513';
+                dayBtn.style.fontWeight = '700';
+                dayBtn.style.cursor = 'pointer';
+                dayBtn.style.fontSize = '1.1rem';
+                dayBtn.style.boxShadow = '0 2px 8px rgba(139,69,19,0.07)';
+                dayBtn.style.transition = 'background 0.2s, color 0.2s, border 0.2s';
+                dayBtn.onmouseover = function() {
+                    if (i <= maxUnlockedDay) {
+                        dayBtn.style.background = '#FFD700';
+                        dayBtn.style.color = '#2C1810';
+                        dayBtn.style.border = '2px solid #FFD700';
+                    }
+                };
+                dayBtn.onmouseout = function() {
+                    if (i <= maxUnlockedDay) {
+                        dayBtn.style.background = '#FFF8F0';
+                        dayBtn.style.color = '#8B4513';
+                        dayBtn.style.border = '2px solid #e0d6cb';
+                    }
+                };
+                dayBtn.setAttribute('data-day', i);
+                if (i <= maxUnlockedDay) {
+                    dayBtn.disabled = false;
+                    dayBtn.style.opacity = '1';
+                    dayBtn.addEventListener('click', function() {
+                        updateDashboardForDay(i);
+                        daysModal.style.display = 'none';
+                    });
+                } else {
+                    dayBtn.disabled = true;
+                    dayBtn.style.opacity = '0.5';
+                    dayBtn.style.cursor = 'not-allowed';
+                }
+                allDaysGrid.appendChild(dayBtn);
+            }
+            daysModal.style.display = 'flex';
+        });
+
+        // Update day scroller event listeners to use updateDashboardForDay
+        function renderDayScroller(selectedDay) {
+            const daysScroller = document.getElementById('daysScroller');
+            daysScroller.innerHTML = '';
+            const totalDays = 164;
+            let start = Math.max(1, selectedDay - 2);
+            let end = Math.min(totalDays, start + 4);
+            if (end - start < 4) start = Math.max(1, end - 4);
+            for (let d = start; d <= end; d++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'day-card' + (d === selectedDay ? ' active' : '');
+                dayDiv.setAttribute('data-day', d);
+                dayDiv.innerHTML = `<span class=\"day-label\">Day</span><span class=\"day-number\">${d}</span>`;
+                if (d <= maxUnlockedDay) {
+                    dayDiv.style.opacity = '1';
+                    dayDiv.style.cursor = 'pointer';
+                    dayDiv.addEventListener('click', function() {
+                        updateDashboardForDay(d);
+                    });
+                } else {
+                    dayDiv.style.opacity = '0.5';
+                    dayDiv.style.cursor = 'not-allowed';
+                }
+                daysScroller.appendChild(dayDiv);
+            }
+        }
+
+        // Mark as Complete button logic
+        document.getElementById('markCompleteBtn').addEventListener('click', function() {
+            if (currentDay < 164) {
+                maxUnlockedDay = Math.max(maxUnlockedDay, currentDay + 1);
+                updateDashboardForDay(currentDay + 1);
+            } else {
+                this.disabled = true;
+                this.textContent = 'All Days Completed!';
+                this.style.background = '#aaa';
+                this.style.cursor = 'not-allowed';
+            }
+        });
+
+        // Show 164 days in modal when 'View Days' is clicked
+        const daysModal = document.getElementById('daysModal');
+        const allDaysGrid = document.getElementById('allDaysGrid');
+        const closeDaysModal = document.getElementById('closeDaysModal');
+
+        // Close modal on outside click
+        daysModal.addEventListener('click', function(e) {
+            if (e.target === daysModal) daysModal.style.display = 'none';
+        });
+
+        // Profile icon click: go to profile page
+        document.getElementById('profileIcon').addEventListener('click', function() {
+            window.location.href = 'profile.html';
+        });
+    </script>
+</body>
+</html> 

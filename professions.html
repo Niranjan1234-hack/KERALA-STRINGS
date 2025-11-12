@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professions - Kerala Strings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="icon.png">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #FFD700;
+            --text-dark: #2C1810;
+            --text-light: #6B4423;
+            --bg-light: #FFF8F0;
+            --white: #FFFFFF;
+            --border-color: #e0d6cb;
+            --card-background: #ffffff;
+            --shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Header from index.html */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 1rem 0;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-icon {
+            width: 28px;
+            height: 28px;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Content Area */
+        .content-area {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 80px auto 0; /* Adjust for fixed header */
+        }
+
+        .page-title-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .page-title-section h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+        
+        .designation-section {
+            margin-top: 2rem;
+        }
+
+        .designation-section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .designation-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .designation-card {
+            background-color: var(--card-background);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .designation-card.locked {
+            background-color: #f9f9f9;
+        }
+
+        .designation-card:not(.locked):hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(139, 69, 19, 0.15);
+        }
+        
+        .designation-image {
+            width: 120px;
+            height: 90px;
+            border-radius: 8px;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .designation-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .designation-card:not(.locked):hover .designation-image img {
+            transform: scale(1.05);
+        }
+
+        .designation-card.locked .designation-image img {
+            filter: grayscale(100%);
+            opacity: 0.6;
+        }
+
+        .designation-info {
+            flex-grow: 1;
+        }
+
+        .designation-info span {
+            color: var(--secondary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .designation-info h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 0.2rem;
+            color: var(--text-dark);
+        }
+
+        .lock-icon {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            opacity: 0.7;
+            padding: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .designation-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .designation-image {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                width: 100%;
+                height: 180px;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        .social-links a:hover {
+            background: var(--accent-color);
+            color: var(--text-dark);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #ccc;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="icon.png" alt="Logo" class="header-icon">
+                <i class="fas fa-music"></i>
+                Kerala Strings
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="professions.html">Professions</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content-area">
+        <section class="page-title-section">
+            <h1>Our Programs</h1>
+            <p class="page-subtitle">Choose your learning path and become a violin virtuoso.</p>
+        </section>
+
+        <section class="designation-section">
+            <h2>Designations</h2>
+            <div class="designation-grid">
+                
+                <div class="designation-card" onclick="window.location.href='mobile_dashboard.html'" style="cursor: pointer;">
+                    <div class="designation-image">
+                        <img src="https://images.unsplash.com/photo-1612299263222-2273c52857b2?w=400&h=200&fit=crop" alt="Violin Foundation">
+                    </div>
+                    <div class="designation-info">
+                        <span># 1</span>
+                        <h3>Violin Foundation</h3>
+                    </div>
+                </div>
+
+                <div class="designation-card locked">
+                    <div class="designation-image">
+                        <img src="https://images.unsplash.com/photo-1599557041284-7e2a1581e479?w=400&h=200&fit=crop" alt="Intermediate Techniques">
+                    </div>
+                    <div class="designation-info">
+                        <span># 2</span>
+                        <h3>Intermediate Techniques</h3>
+                    </div>
+                    <i class="fas fa-lock lock-icon"></i>
+                </div>
+
+                <div class="designation-card locked">
+                    <div class="designation-image">
+                        <img src="https://images.unsplash.com/photo-1581783332084-59a3413ce16b?w=400&h=200&fit=crop" alt="Advanced Artistry">
+                    </div>
+                    <div class="designation-info">
+                        <span># 3</span>
+                        <h3>Advanced Artistry</h3>
+                    </div>
+                    <i class="fas fa-lock lock-icon"></i>
+                </div>
+
+                <div class="designation-card locked">
+                    <div class="designation-image">
+                        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&h=200&fit=crop" alt="Performance & Composition">
+                    </div>
+                    <div class="designation-info">
+                        <span># 4</span>
+                        <h3>Performance & Composition</h3>
+                    </div>
+                    <i class="fas fa-lock lock-icon"></i>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Kerala Strings</h3>
+                    <p>Your premier destination for online violin education. Learn from experts, practice effectively, and achieve your musical goals.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#home">Home</a></p>
+                    <p><a href="#lessons">Lessons</a></p>
+                    <p><a href="#features">Features</a></p>
+                    <p><a href="student form.html">Student Registration</a></p>
+                    <p><a href="#testimonials">Testimonials</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope"></i> niranjan202320247@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +91 9388444637</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Pavithra Kumar and Associates, GowriMahal building 2nd Floor, Opp: I.O.C petrol pump, Kayamkulam, Kayamkulam - Pathanapuram Rd, Kayamkulam, Kerala 690502</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get the latest lesson updates and practice tips.</p>
+                    <form style="margin-top: 1rem;">
+                        <input type="email" placeholder="Enter your email" style="padding: 0.5rem; border: none; border-radius: 5px; width: 100%; margin-bottom: 0.5rem;">
+                        <button type="submit" style="background: var(--accent-color); color: var(--text-dark); padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kerala Strings. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html> 

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Kerala Strings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="icon.png">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #FFD700;
+            --text-dark: #2C1810;
+            --text-light: #6B4423;
+            --bg-light: #FFF8F0;
+            --white: #FFFFFF;
+            --border-color: #e0d6cb;
+            --card-background: #ffffff;
+            --shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 1rem 0;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .header-icon {
+            width: 28px;
+            height: 28px;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+        .user-greeting {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-top: 2rem;
+            color: var(--primary-color);
+        }
+        .dashboard-section {
+            margin-top: 2.5rem;
+        }
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .dashboard-card {
+            background-color: var(--card-background);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .dashboard-card:hover {
+            box-shadow: 0 15px 35px rgba(139, 69, 19, 0.15);
+            transform: translateY(-5px);
+        }
+        .dashboard-card i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        .dashboard-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .dashboard-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="icon.png" alt="Logo" class="header-icon">
+                <i class="fas fa-music"></i>
+                Kerala Strings
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="home_loggedin.html">Home</a></li>
+                    <li><a href="professions.html">Programs</a></li>
+                    <li><a href="my.html">My Dashboard</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" onclick="logoutUser()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="content-area">
+        <div class="user-greeting">
+            Welcome back, <span id="username">User</span>!
+        </div>
+        <section class="dashboard-section">
+            <div class="dashboard-title">Quick Access</div>
+            <div class="dashboard-cards">
+                <div class="dashboard-card" onclick="window.location.href='professions.html'" style="cursor:pointer;">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>My Dashboard</h3>
+                    <p>View your progress, achievements, and upcoming lessons.</p>
+                </div>
+                <div class="dashboard-card" onclick="window.location.href='professions.html'" style="cursor:pointer;">
+                    <i class="fas fa-music"></i>
+                    <h3>Programs</h3>
+                    <p>Explore and continue your violin learning journey.</p>
+                </div>
+                <div class="dashboard-card" onclick="window.location.href='#contact'" style="cursor:pointer;">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Contact Support</h3>
+                    <p>Need help? Reach out to our support team.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        // Example: Set username dynamically (replace with real logic)
+        document.getElementById('username').textContent = localStorage.getItem('username') || 'User';
+        function logoutUser() {
+            // Clear user session (example)
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect - Kerala Strings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="icon.png">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #FFD700;
+            --text-dark: #2C1810;
+            --text-light: #6B4423;
+            --bg-light: #FFF8F0;
+            --white: #FFFFFF;
+            --shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-icon {
+            width: 28px;
+            height: 28px;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .lesson-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .lesson-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .video-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .video-player {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-player::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .video-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .control-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .control-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .join-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .join-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .join-btn {
+            background: var(--accent-color);
+            color: var(--text-dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .join-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .progress-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            width: 65%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-title {
+                font-size: 2rem;
+            }
+
+            .lesson-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .video-player {
+                height: 250px;
+            }
+
+            .main-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="icon.png" alt="Logo" class="header-icon">
+                <i class="fas fa-music"></i>
+                Kerala Strings
+            </div>
+            <a href="mobile_dashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <h1 class="lesson-title" id="lessonTitle">Violin Basics</h1>
+            <div class="lesson-meta">
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="lessonDuration">3min 22sec</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    <span id="lessonTag">Beginner</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span id="lessonDate">Today</span>
+                </div>
+            </div>
+            <p class="lesson-description" id="lessonDescription">
+                Master the fundamentals: proper posture, bow hold, and basic finger placement. Perfect for complete beginners.
+            </p>
+        </div>
+
+        <!-- Add this where you want the progress to show, e.g., after the lesson header -->
+        <div class="progress-section">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span><strong>Your Progress</strong></span>
+                <span id="lessonProgressLabel">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="lessonProgressBar" style="width:0%"></div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Video Section -->
+            <div class="video-section">
+                <div class="video-player">
+                    <i class="fas fa-play"><iframe width="550" height="550" src="https://youtu.be/86Do3E6nzDU?si=vFxKVnIn17ordepg" title="kannam Thumbi | കണ്ണാം തുമ്പി | Violin Tutorial | Kakkothikkavile Appooppan Thaadikal" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></i>
+                </div>
+                <div class="video-controls">
+                    <button class="control-btn">
+                        <i class="fas fa-play"></i>
+                        Play
+                    </button>
+                    <button class="control-btn">
+                        <i class="fas fa-pause"></i>
+                        Pause
+                    </button>
+                    <button class="control-btn">
+                        <i class="fas fa-redo"></i>
+                        Restart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Lesson Info -->
+                <div class="info-card">
+                    <h3>
+                        <i class="fas fa-info-circle"></i>
+                        Lesson Details
+                    </h3>
+                    <ul class="info-list">
+                        <li>
+                            <span>Difficulty:</span>
+                            <span id="difficulty">Beginner</span>
+                        </li>
+                        <li>
+                            <span>Category:</span>
+                            <span id="category">Technique</span>
+                        </li>
+                        <li>
+                            <span>Instructor:</span>
+                            <span id="instructor">Prof. Sarah Johnson</span>
+                        </li>
+                        <li>
+                            <span>Language:</span>
+                            <span id="language">English</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Progress -->
+                <div class="progress-section">
+                    <h3>
+                        <i class="fas fa-chart-line"></i>
+                        Your Progress
+                    </h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p style="text-align: center; color: var(--text-light);">65% Complete</p>
+                </div>
+
+                <!-- Join Live Session -->
+                <div class="join-section">
+                    <h3>
+                        <i class="fas fa-video"></i>
+                        Live Session Available
+                    </h3>
+                    <p>Join our live violin session with expert instructors</p>
+                    <button class="join-btn" onclick="joinLiveSession()">
+                        <i class="fas fa-video"></i>
+                        Join Live Session
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get lesson details from URL parameters or localStorage
+        function getLessonDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lessonId = urlParams.get('lesson') || '1';
+            
+            // Sample lesson data (you can expand this)
+            const lessons = {
+                '1': {
+                    title: 'Violin Basics',
+                    duration: '3min 22sec',
+                    tag: 'Beginner',
+                    description: 'Master the fundamentals: proper posture, bow hold, and basic finger placement. Perfect for complete beginners.',
+                    difficulty: 'Beginner',
+                    category: 'Technique',
+                    instructor: 'Prof. Sarah Johnson',
+                    language: 'English'
+                },
+                '2': {
+                    title: 'Bow Hold Techniques',
+                    duration: '4min 10sec',
+                    tag: 'Beginner',
+                    description: 'Learn proper bow hold techniques and improve your playing foundation.',
+                    difficulty: 'Beginner',
+                    category: 'Technique',
+                    instructor: 'Prof. Michael Chen',
+                    language: 'English'
+                },
+                '3': {
+                    title: 'Scales Practice',
+                    duration: '5min 45sec',
+                    tag: 'Intermediate',
+                    description: 'Master essential scales and arpeggios to build technique and improve your playing.',
+                    difficulty: 'Intermediate',
+                    category: 'Practice',
+                    instructor: 'Prof. Emily Rodriguez',
+                    language: 'English'
+                }
+            };
+
+            const lesson = lessons[lessonId] || lessons['1'];
+            
+            // Update page content
+            document.getElementById('lessonTitle').textContent = lesson.title;
+            document.getElementById('lessonDuration').textContent = lesson.duration;
+            document.getElementById('lessonTag').textContent = lesson.tag;
+            document.getElementById('lessonDescription').textContent = lesson.description;
+            document.getElementById('difficulty').textContent = lesson.difficulty;
+            document.getElementById('category').textContent = lesson.category;
+            document.getElementById('instructor').textContent = lesson.instructor;
+            document.getElementById('language').textContent = lesson.language;
+        }
+
+        // Join live session function
+        function joinLiveSession() {
+            // You can integrate with your Google Meet link here
+            window.open('https://meet.google.com/jrs-wekc-bij', '_blank');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            getLessonDetails();
+        });
+
+        // Video control functions (placeholder)
+        document.querySelectorAll('.control-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.textContent.trim();
+                console.log('Video action:', action);
+                // Add your video player logic here
+            });
+        });
+
+        // Set lessonProgress (replace with real data as needed)
+        const lessonProgress = 65; // Example: 65% complete
+
+        document.getElementById('lessonProgressBar').style.width = lessonProgress + '%';
+        document.getElementById('lessonProgressLabel').textContent = lessonProgress + '%';
+    </script>
+</body>
+</html> 

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kerala Strings — Learn Violin Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root{
+      --bg:#071629;
+      --card:#0b1a2a;
+      --accent:#FFB703;
+      --accent-2:#D97706;
+      --muted:#9fb0c8;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins",system-ui,Segoe UI,Roboto,Arial;
+      background:
+        radial-gradient(800px 420px at 10% 12%, rgba(255,183,3,0.06), transparent),
+        linear-gradient(180deg, #021025 0%, var(--bg) 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    .topbar{
+      position:fixed;left:0;right:0;top:0;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:14px 28px;z-index:1200;background:rgba(3,9,18,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit;font-weight:700}
+    .logo{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#081018;font-weight:800}
+    .navlinks{display:flex;gap:18px;align-items:center}
+    .navlinks a{color:var(--muted);text-decoration:none;padding:6px 8px;border-radius:8px}
+    .navlinks a:hover{color:#fff;background:rgba(255,255,255,0.02)}
+
+    .hero{min-height:86vh;display:flex;align-items:center;justify-content:center;padding:120px 20px 60px}
+    .hero-grid{max-width:1180px;width:100%;display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:center}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;padding:40px;box-shadow:0 30px 80px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .eyebrow{color:var(--accent);font-weight:700;font-size:.82rem}
+    h1{font-size:2.4rem;margin:12px 0 8px}
+    p.lead{color:#cbd5e1;margin-bottom:18px}
+
+    .cta-row{display:flex;gap:12px;align-items:center}
+    .btn{padding:12px 20px;border-radius:12px;border:0;font-weight:700;cursor:pointer;display:inline-flex;gap:10px}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#081018}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    .features-inline{display:flex;gap:14px;margin-top:18px;flex-wrap:wrap}
+    .feature-pill{display:inline-flex;gap:10px;align-items:center;background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:600}
+
+    .card-right{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.03)}
+    .instructor{display:flex;gap:14px;align-items:center}
+    .instructor img{width:64px;height:64px;border-radius:12px;object-fit:cover}
+    .progress{height:8px;background:rgba(255,255,255,0.06);border-radius:8px;margin-top:12px;overflow:hidden}
+    .progress > i{display:block;height:100%;width:58%;background:linear-gradient(90deg,var(--accent-2),var(--accent))}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+    .feature{background:rgba(255,255,255,0.01);padding:20px;border-radius:12px}
+
+    footer.site-footer{padding:28px;text-align:center;color:var(--muted);font-size:.95rem}
+
+    /* modal */
+    .modal{display:none;position:fixed;inset:0;background:rgba(2,6,23,0.7);z-index:1400;align-items:center;justify-content:center;padding:20px}
+    .modal.show{display:flex}
+    .modal-box{width:100%;max-width:460px;background:linear-gradient(180deg,#091523,#0e2a3c);padding:22px;border-radius:14px;border:1px solid rgba(255,255,255,0.04)}
+    .form-group{margin-bottom:12px}
+    .form-group label{display:block;color:var(--muted);font-size:0.92rem;margin-bottom:6px}
+    .form-group input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff}
+
+    @media (max-width:900px){ .hero-grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <header class="topbar" role="banner">
+    <a class="brand" href="/">
+      <div class="logo" aria-hidden="true"><i class="fas fa-music"></i></div>
+      Kerala Strings
+    </a>
+    <nav class="navlinks" aria-label="Main Navigation">
+      <a href="#features">Features</a>
+      <a id="openLogin" href="#">Login</a>
+      <a id="openRegister" href="student form.html">Register</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-labelledby="hero-heading">
+      <div class="hero-grid">
+        <div class="hero-card" role="region" aria-labelledby="hero-heading">
+          <div class="eyebrow">ONLINE VIOLIN SCHOOL</div>
+          <h1 id="hero-heading">Master the Violin — anywhere, at your pace</h1>
+          <p class="lead">Interactive lessons, live feedback and curated repertoire. Play confidently with structured practice and personalised tutor guidance.</p>
+
+          <div class="cta-row">
+            <button class="btn btn-primary" id="ctaStart">Start Learning</button>
+            <button class="btn btn-ghost" id="ctaExplore">Explore Courses</button>
+          </div>
+
+          <div class="features-inline">
+            <div class="feature-pill"><i class="fas fa-chalkboard-teacher" style="color:var(--accent)"></i>Live tutor feedback</div>
+            <div class="feature-pill"><i class="fas fa-book-open" style="color:var(--accent)"></i>Structured curriculum</div>
+            <div class="feature-pill"><i class="fas fa-chart-line" style="color:var(--accent)"></i>Progress tracking</div>
+          </div>
+        </div>
+
+        <aside class="card-right" aria-labelledby="featured-course">
+          <div>
+            <div style="font-size:.9rem;color:var(--muted)">Featured Course</div>
+            <div id="featured-course" style="font-weight:700;font-size:1.05rem">Beginner Violin Essentials</div>
+          </div>
+
+          <div style="margin-top:14px" class="instructor">
+            <img src="https://images.unsplash.com/photo-1510867759970-5f12d57f1c2b?auto=format&fit=crop&w=400&q=60" alt="Instructor">
+            <div>
+              <div style="font-weight:700">S. Nair</div>
+              <div style="color:var(--muted);font-size:.95rem">Lead Instructor</div>
+            </div>
+          </div>
+
+          <div class="progress" aria-hidden="true"><i></i></div>
+          <div style="margin-top:12px;color:var(--muted);font-size:.95rem">Next live class: <strong style="color:#fff">Sat, 7 PM</strong></div>
+          <div style="margin-top:12px;display:flex;gap:10px">
+            <button class="btn btn-primary" style="flex:1" id="joinBtn">Join Class</button>
+            <button class="btn btn-ghost" style="flex:1" id="previewBtn">Preview</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="features" class="features" aria-labelledby="features-heading">
+      <h2 id="features-heading" style="text-align:center;color:#fff;margin-bottom:18px">What you'll get</h2>
+      <div class="grid" role="list">
+        <div class="feature" role="listitem"><h4>Expert Tutors</h4><p>Lessons from experienced violinists with structured progress and feedback.</p></div>
+        <div class="feature" role="listitem"><h4>HD Video Lessons</h4><p>High-quality multi-angle videos and downloadable practice materials.</p></div>
+        <div class="feature" role="listitem"><h4>Community</h4><p>Join practice groups, challenges, and community recitals.</p></div>
+        <div class="feature" role="listitem"><h4>Progress Tracking</h4><p>Visual progress reports and milestone badges.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">© <span id="year"></span> Kerala Strings — Learn Violin Online</footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-box" role="document">
+      <button id="closeLogin" aria-label="Close" style="float:right;background:transparent;border:0;color:var(--muted);font-size:20px;cursor:pointer">&times;</button>
+      <h3>Sign in</h3>
+      <form id="loginForm" action="/login" method="post">
+        <div class="form-group"><label for="login-identifier">Email or Username</label><input id="login-identifier" name="username" type="text" required placeholder="you@example.com"></div>
+        <div class="form-group"><label for="login-password">Password</label><input id="login-password" name="password" type="password" required placeholder="••••••••"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <label style="color:var(--muted);font-size:.9rem"><input type="checkbox" name="remember" style="margin-right:8px"> Remember</label>
+          <a href="#" style="color:var(--accent);text-decoration:none;font-weight:600">Forgot?</a>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <button type="submit" class="btn btn-primary">Sign in</button>
+          <button type="button" class="btn btn-ghost" id="loginCancel">Cancel</button>
+        </div>
+        <div id="loginMsg" style="margin-top:12px;color:#ffb4b4"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Get DOM elements
+    const yearElement = document.getElementById('year');
+    const openLogin = document.getElementById('openLogin');
+    const loginModal = document.getElementById('loginModal');
+    const closeLogin = document.getElementById('closeLogin');
+    const loginCancel = document.getElementById('loginCancel');
+    const loginForm = document.getElementById('loginForm');
+    const loginMsg = document.getElementById('loginMsg');
+
+    // Set current year
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+
+    // Show login modal
+    function showLogin() {
+        if (loginModal) {
+            loginModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    // Hide login modal
+    function hideLogin() {
+        if (loginModal) {
+            loginModal.style.display = 'none';
+            document.body.style.overflow = '';
+            if (loginMsg) loginMsg.textContent = '';
+        }
+    }
+
+    // Event listeners
+    if (openLogin) {
+        openLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLogin();
+        });
+    }
+
+    if (closeLogin) {
+        closeLogin.addEventListener('click', hideLogin);
+    }
+
+    if (loginCancel) {
+        loginCancel.addEventListener('click', hideLogin);
+    }
+
+    if (loginModal) {
+        loginModal.addEventListener('click', function(e) {
+            if (e.target === loginModal) hideLogin();
+        });
+    }
+
+    // Handle login form submission
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('login-identifier').value;
+            const password = document.getElementById('login-password').value;
+
+            if (username && password) {
+                window.location.href = 'home_loggedin.html';
+            } else {
+                if (loginMsg) {
+                    loginMsg.textContent = 'Please fill in all fields';
+                }
+            }
+        });
+    }
+
+    // CTA button functionality
+    const ctaStart = document.getElementById('ctaStart');
+    if (ctaStart) {
+        ctaStart.addEventListener('click', showLogin);
+    }
+  </script>
+</body>
+</html>
